@@ -1,0 +1,61 @@
+<% include ./../header %>
+
+        <!-- Inicio do corpo -->
+        <div id="page-wrapper">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header">Alterar senha</h1>
+                    <ol class="breadcrumb">
+                            <li>
+                                <i class="fa fa-home"></i>  <a href="/home">Home</a>
+                            </li>
+                            <li class="active">
+                                <i class="fa fa-edit"></i> Alterar senha
+                            </li>
+                    </ol>
+                </div>                
+            </div>
+
+            <div class="row">                         		
+            	<div class="col-lg-6">
+            	   <form id="frmAlterarSenha" method="post">
+	            	<div class="form-group">           	
+	            		<label>Senha atual</label>
+	            		<input name="txtSenhaAtual" type="password" class="margin-bottom-input form-control" placeholder="Digite a senha atual" maxlength="20" required autofocus> </input>
+
+	            		<label>Nova senha</label>
+	            		<input name="txtNovaSenha" type="password" class="margin-bottom-input form-control" placeholder="Digite a nova senha" maxlength="20" required> </input>
+
+	            		<label>Repita nova senha</label>
+	            		<input name="txtRNovaSenha" type="password" class="form-control" placeholder="Repita a nova senha" maxlength="20" required> </input>
+	            		<br/>       			
+
+            			<button id="the-thing-that-opens-your-alert" type="submit" class="btn btn-success" title="Clique para atualizar a senha" onclick="$('#alerta').toggle();">Atualizar</button>
+
+                        <button type="reset" class="btn btn-success" title="Clique para limpar o formulário">Limpar</button> 
+            		</div>
+            	  </form>	
+            	</div>
+            	<div class="col-lg-6">
+            		<br/>
+					<div class="panel panel-default">
+					  <div class="panel-heading">Dicas de senha</div>
+					  <div class="panel-body">
+					    <p>A senha deve ter pelo menos oito caracteres. Eles podem incluir: </p>
+					    <ul>
+					     	<li>Letras maiúsculas e minúsculas. As senhas diferenciam maiúsculas de minúsculas, portanto "A" é diferente de "a"; </li>
+					     	<li>Números;</li>
+					     	<li>Estes símbolos: ! " # $ % & ‘ ( ) * + , - . / : ; < = > ? @ [ \ ] ^ { | } ~;</li>
+					     	<li>Espaços.</li>
+					    </ul>
+					    <p>Lembre-se de que não é possível reutilizar uma senha usada anteriormente. Também bloqueamos algumas senhas fáceis de adivinhar, como “12345678”.</p>
+					  </div>
+					</div>
+            	</div>
+            </div>
+            </div>
+        </div>
+    </div>
+    <!-- Fim do corpo -->
+    
+<% include ./../footer %>

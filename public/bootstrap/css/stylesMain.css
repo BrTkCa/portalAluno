@@ -1,0 +1,219 @@
+body {
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+.padding-panel {
+  padding-top: 5px;  
+}
+
+.padding-panel-index {
+  margin-top: 5px;  
+}
+
+.panel-default > h6 { 
+  padding-left: 10px;
+}
+
+.margin-bottom-input {
+  margin-bottom: 10px;
+}
+
+.panel-default > .panel-heading {
+  color: #FFFFFF;
+  background-color: #337AB7;
+  border-color: #ddd;
+}
+
+.page-header {
+  margin-top: 1%;
+  font-size: 28px;
+}
+
+.modal-header {
+  color: #FFFFFF;
+  background-color: #337AB7;
+  border-color: #ddd;
+}
+
+.modal-dialog {
+  margin-top: 10%;
+}
+
+.table-align-center {
+  text-align: center;
+}
+
+.btn-default:hover {
+  color: #ffffff;
+  background-color: #337AB7;
+}
+
+.box {
+    border-radius: 3px;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+    padding: 10px 25px;
+    text-align: right;
+    display: block;
+    margin-top: 60px;
+}
+.box-icon {
+    background-color: #57a544;
+    border-radius: 50%;
+    display: table;
+    height: 100px;
+    margin: 0 auto;
+    width: 100px;
+    margin-top: -61px;
+}
+.box-icon span {
+    color: #fff;
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+}
+.info h4 {
+    font-size: 26px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+.info > p {
+    color: #717171;
+    font-size: 16px;
+    padding-top: 10px;
+    text-align: justify;
+}
+.info > a {
+    background-color: #03a9f4;
+    border-radius: 2px;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+    color: #fff;
+    transition: all 0.5s ease 0s;
+}
+.info > a:hover {
+    background-color: #0288d1;
+    box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.16), 0 2px 5px 0 rgba(0, 0, 0, 0.12);
+    color: #fff;
+    transition: all 0.5s ease 0s;
+}
+
+.accordion {
+  padding: 0;
+  width: 100%;
+  overflow: hidden;
+  font-size: 1em;
+  position: relative;
+}
+
+.accordion__title {
+  padding: 0 1em;
+  background: #337AB7;
+  border-top: 2px solid #FFF;
+  color: #ffffff;
+  float: left;
+  line-height: 3;
+  height: 3em;
+  cursor: pointer;
+  margin-right: .25em;
+}
+
+.no-js .accordion__title {
+  float: none;
+  height:auto;
+  cursor:auto;
+  margin:0;
+  padding:0 2em;
+}
+
+.accordion__content {
+  float: right;
+  width: 100%;
+  margin: 3em 0 0 -100%;
+  padding: 2em;
+  background: transparent;
+}
+
+.no-js .accordion__content {
+  float:left;
+  margin:0;
+}
+
+.accordion__title:hover,
+.accordion__title.active {
+  background: #337AB7;
+  color: #ffffff;
+}
+
+.no-js .accordion__title:hover {
+  background-color:#ccc;
+  color:#222;
+}
+
+.accordion__title.active {
+  border-top-color:#BEBEBE;
+}
+
+@media (max-width: 48em) {
+  
+  .accordion {
+    border: 1px solid grey;
+  }
+  
+  .accordion__title,
+  .accordion__content { 
+    float: none;
+    margin: 0;
+  }
+  
+  .accordion__title:first-child {
+    border:none;
+  }
+  
+ .accordion__title.active {
+  border-top-color:#eee;
+  }
+  
+  .accordion__title.active, .accordion__title:hover {
+    background:#777;
+  }
+  
+  .accordion__title:before {
+  content:"+";
+  text-align:center;
+  width:2em;
+  display:inline-block;
+  }
+ .accordion__title.active:before {
+  content:"-";
+  }
+  
+ .overflow-scrolling {
+  overflow-y: scroll;
+  height:11em;
+  padding:1em 1em 0 1em;
+  /* Warning: momemtum scrolling seems buggy on iOS 7  */
+  -webkit-overflow-scrolling: touch;
+  }
+
+  .accordion__content {
+    position:relative;
+    overflow:hidden;
+    padding:0;
+  }
+  
+   .no-js .accordion__content {
+    padding:1em;
+    overflow:auto;
+    display:block;
+  }
+  
+  .accordion__content:after {
+    position:absolute;
+    top:100%;
+    left:0;
+    width:100%;
+    height:50px;
+    border-radius:10px 0 0 10px / 50% 0 0 50%;
+    box-shadow:-5px 0 10px rgba(0, 0, 0, 0.5);
+    content:'';
+}  

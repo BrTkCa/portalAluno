@@ -1,0 +1,150 @@
+<% include ./../header %>
+   <!-- Inicio do corpo -->
+   <div id="page-wrapper">
+      <div class="row padding-panel hidden-xs hidden-sm show-md show-lg">
+         <div class="col-xs-1">
+            <div class="form-group">
+               <img src="/<%= session.url_imagem %>" alt="Perfil" class="img-circle"
+               height="75px" width="75px">
+               <button class="btn-link" title="Clique para alterar a imagem" data-toggle="modal"
+               data-target="#mdlAlterarFoto" style="margin-left: 13%;">
+                  Alterar
+               </button>
+            </div>
+         </div>
+         <div class="col-xs-11">
+            <div class="form-group">
+               <span style="font-family: 'Proxima nova light'; font-weight: normal;">
+                  <label style="padding-top: 3%;">
+                     <%- dados[0]._nome %>
+                        ,
+                        <%- dados[0]._dtnasc %>
+                  </label>
+               </span>
+            </div>
+         </div>
+      </div>
+      <div class="row padding-panel show-xs show-sm hidden-md hidden-lg">
+         <div class="col-xs-3">
+            <div class="form-group">
+               <img src="/<%= session.url_imagem %>" alt="Perfil" class="img-circle"
+               height="75px" width="75px">
+               <button class="btn-link" title="Clique para alterar a imagem" data-toggle="modal"
+               data-target="#mdlAlterarFoto" style="margin-left: 13%;">
+                  Alterar
+               </button>
+            </div>
+         </div>
+         <div class="col-xs-9">
+            <div class="form-group">
+               <span style="font-family: 'Proxima nova light'; font-weight: normal;">
+                  <label style="padding-top: 10%;">
+                     <%- dados[0]._nome %>
+                        ,
+                        <%- dados[0]._dtnasc %>
+                  </label>
+               </span>
+            </div>
+         </div>
+      </div>
+      <!-- Dialog de cadastro da nova avalicao -->
+      <div id="mdlAlterarFoto" class="modal fade">
+         <div class="modal-dialog">
+            <div class="modal-content">
+               <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                     ×
+                  </button>
+                  <h4 class="modal-title">
+                     <i class="fa fa-eject fa-fw">
+                     </i>
+                     Upload
+                  </h4>
+               </div>
+               <form action='/home/perfil_usuario/upload' method='post' enctype='multipart/form-data'>
+                  <div class="modal-body">
+                     <div class="row">
+                        <div class="col-xs-8">
+                           <input name='image' id="image" type='file' style="margin-top: 11%;" accept="image/*"
+                           />
+                        </div>
+                        <div class="col-xs-4">
+                           <img id="preview" src="/<%= session.url_imagem %>" class="img-circle"
+                           height="80%" width="80%">
+                        </div>
+                     </div>
+                  </div>
+                  <div class="modal-footer">
+                     <div align="center">
+                        <button type="submit" class="btn btn-sm btn-primary" title="Se estiver certo disso, clique ">
+                           <span class="glyphicon glyphicon-check">
+                           </span>
+                           Enviar
+                        </button>
+                     </div>
+                  </div>
+               </form>
+            </div>
+            <!-- /.modal-content -->
+            </form>
+         </div>
+         <!-- /.modal-dialog -->
+      </div>
+      <!-- /.modal -->
+      <div class="row padding-panel">
+         <div class="col-lg-6">
+            <div class="form-group">
+               <label>
+                  Naturalidade
+               </label>
+               <input value="<%- dados[0]._naturalidade %>" class="margin-bottom-input form-control"
+               disabled>
+               </input>
+               <label>
+                  CPF
+               </label>
+               <input value="<%- dados[0]._cpf %>" class="margin-bottom-input form-control"
+               disabled>
+               </input>
+               <label>
+                  Login do sistema
+               </label>
+               <input value="<%- dados[0]._login %>" class="margin-bottom-input form-control"
+               disabled>
+               </input>
+               <label>
+                  Tipo de usuário
+               </label>
+               <input value="<%- dados[0]._tipousuario %>" class="margin-bottom-input form-control"
+               disabled>
+               </input>
+            </div>
+         </div>
+         <div class="col-lg-6">
+            <label>
+               Estado cívil
+            </label>
+            <input value="<%- dados[0]._estadocivil %>" class="margin-bottom-input form-control"
+            disabled>
+            </input>
+            <label>
+               Sexo
+            </label>
+            <input value="<%- dados[0]._sexo %>" class="margin-bottom-input form-control"
+            disabled>
+            </input>
+            <label>
+               E-mail(s)
+            </label>
+            <textarea class="margin-bottom-input form-control" disabled><%- dados[0]._emails %></textarea>
+            <label>
+               Telefone(s)
+            </label>
+            <textarea class="margin-bottom-input form-control" disabled><%- dados[0]._telefones %></textarea>
+         </div>
+      </div>
+   </div>
+   </div>
+   </div>
+   <!-- Fim do corpo -->
+   <% include ./../footer %>

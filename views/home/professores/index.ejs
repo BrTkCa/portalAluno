@@ -1,0 +1,56 @@
+<% include ./../header %>
+
+        <!-- Inicio do corpo -->
+        <div id="page-wrapper">
+                    
+            <div class="row padding-panel">
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">Dados da matrícula</div>                            
+                            <h6><strong>Instituição:</strong> <%- dadosMatricula[0].ies %> </h6>
+                            <h6><strong>Período letivo:</strong> <%- dadosMatricula[0].perletivo %> </h5>
+                            <h6><strong>Curso:</strong> <%- dadosMatricula[0].curso %> </h6>                   
+                            <h6><strong>Situação da matrícula:</strong> <%- dadosMatricula[0].situacao %> </h6>    
+                    </div>
+                </div>                
+            </div>
+
+                   <!-- /.panel -->
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <i class="fa fa-sitemap fa-fw"></i><span class="hidden-xs"> Professores por disciplina</span>                          
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered table-hover table-striped" style="font-size: 12px !important">
+                                            <thead>    
+                                                <tr>
+                                                    <th>Disciplina</th>
+                                                    <th>Professor</th>
+                                                    <th>E-mail</th>   
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                            <% professores.forEach(function(professor) { %>
+                                                <tr>
+                                                    <td><%- professor.disciplina %></td>
+                                                    <td><%- professor.nome %></td>
+                                                    <td><%- professor.endereco %></td>
+                                                </tr>
+                                                <% }) %>
+                                                
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <!-- /.table-responsive -->
+                                </div> 
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Fim do corpo -->
+    
+<% include ./../footer %>

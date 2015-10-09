@@ -1,0 +1,251 @@
+<% include ./../header %>
+   <!-- Inicio do corpo -->
+   <div id="page-wrapper">
+      <div class="row padding-panel">
+         <div class="col-lg-12">
+            <div class="panel panel-default">
+               <div class="panel-heading">
+                  Dados da matrícula
+               </div>
+               <h6>
+                  <strong>
+                     Instituição:
+                  </strong>
+                  <%- boletim[0].desc_emp %>
+               </h6>
+               <h6>
+                  <strong>
+                     Período letivo:
+                  </strong>
+                  <%- boletim[0].head_01 %>
+                     </h5>
+                     <h6>
+                        <strong>
+                           Curso:
+                        </strong>
+                        <%- boletim[0].head_02 %>
+                     </h6>
+                     <h6>
+                        <strong>
+                           Situação da matrícula:
+                        </strong>
+                        <%- boletim[0].head_04 %>
+                     </h6>
+            </div>
+         </div>
+      </div>
+      <!-- /.panel -->
+      <div class="panel panel-default">
+         <div class="panel-heading">
+            <i class="fa fa-bar-chart-o fa-fw">
+            </i>
+            <span class="hidden-xs">
+               Desempenho por disciplina
+            </span>
+            <div class="pull-right">
+               <form action="/home/boletim" method="post">
+                  <div class="form-group hidden-xs hidden-sm show-md show-lg" align="center"
+                  style="margin-top: -7px;">
+                     <select class="form-control" name="nivel" onChange="this.form.submit()">
+                        <option value="">
+                           Fase
+                        </option>
+                        <% modulos.forEach(function(modulos) { %>
+                           <option value="<%- modulos.etapa %>">
+                              <%- modulos.etapa %>
+                           </option>
+                           <% }) %>
+                     </select>
+                  </div>
+               </form>
+               <form action="/home/boletim" method="post">
+                  <div class="form-group show-xs show-sm hidden-md hidden-lg" align="center"
+                  style="margin-top: -7px;">
+                     <select class="form-control" name="nivel" onChange="this.form.submit()">
+                        <option value="">
+                           Fase
+                        </option>
+                        <% modulos.forEach(function(modulos) { %>
+                           <option value="<%- modulos.m_etapa %>">
+                              <%- modulos.m_etapa %>
+                           </option>
+                           <% }) %>
+                     </select>
+                  </div>
+               </form>
+            </div>
+         </div>
+         <!-- /.panel-heading -->
+         <div class="panel-body">
+            <ul class="nav nav-tabs">
+               <li class="active">
+                  <a data-toggle="tab" href="#disc">Disciplinas</a>
+               </li>
+               <li>
+                  <a data-toggle="tab" href="#ava">Avaliações</a>
+               </li>
+            </ul>
+            <div class="tab-content">
+               <div id="disc" class="tab-pane fade in active">
+                  <div class="row">
+                     <div class="col-md-12">
+                        <div class="table-responsive">
+                           <table class="table table-bordered table-hover table-striped" style="font-size: 12px !important">
+                              <thead>
+                                 <th colspan="3" style="text-align: center;" title="Identificação">
+                                    Disciplina
+                                 </th>
+                                 <th colspan="4" style="text-align: center;" title="Identificação">
+                                    Desempenho
+                                 </th>
+                                 <th colspan="3" style="text-align: center;" title="Identificação">
+                                    Frequência
+                                 </th>
+                                 <tr>
+                                    <th title="Identificação" class="table-align-center">
+                                       ID
+                                    </th>
+                                    <th>
+                                       Nome
+                                    </th>
+                                    <th class="table-align-center">
+                                       Aulas
+                                    </th>
+                                    <th class="table-align-center">
+                                       1° BIM
+                                    </th>
+                                    <th class="table-align-center">
+                                       2° BIM
+                                    </th>
+                                    <th class="table-align-center">
+                                       Exame
+                                    </th>
+                                    <th class="table-align-center">
+                                       Média
+                                    </th>
+                                    <th class="table-align-center">
+                                       Faltas
+                                    </th>
+                                    <th class="table-align-center">
+                                       Freq.(%)
+                                    </th>
+                                    <th class="table-align-center">
+                                       <center>
+                                          Situação
+                                          <center>
+                                    </th>
+                                 </tr>
+                              </thead>
+                              <tbody>
+                                 <% boletim.forEach(function(boletim) { %>
+                                    <tr>
+                                       <td class="table-align-center">
+                                          <%- boletim.id_disc %>
+                                       </td>
+                                       <td>
+                                          <%- boletim.nome %>
+                                       </td>
+                                       <td class="table-align-center">
+                                          <%- boletim.aulasprevistas %>
+                                       </td>
+                                       <td class="table-align-center">
+                                          <%- boletim.av1bimestre %>
+                                       </td>
+                                       <td class="table-align-center">
+                                          <%- boletim.av2bimestre %>
+                                       </td>
+                                       <td class="table-align-center">
+                                          <%- boletim.notaexame %>
+                                       </td>
+                                       <td class="table-align-center">
+                                          <%- boletim.mediafinal %>
+                                       </td>
+                                       <td class="table-align-center">
+                                          <%- boletim.totalfaltas %>
+                                       </td>
+                                       <td class="table-align-center">
+                                          <%- boletim.frequencia %>
+                                       </td>
+                                       <td class="table-align-center">
+                                          <center>
+                                             <%- boletim.sit_final_disc %>
+                                       </td>
+                                    </tr>
+                                    <% }) %>
+                              </tbody>
+                           </table>
+                        </div>
+                        <!-- /.table-responsive -->
+                     </div>
+                  </div>
+               </div>
+               <!-- FIM PRIMEIRA TAB -->
+
+               <div id="ava" class="tab-pane fade">
+                   <div class="row">
+                     <div class="col-md-12">
+                        <div class="table-responsive">
+                           <table class="table table-bordered table-hover table-striped" style="font-size: 12px !important">
+                              <thead>
+                                 <th style="text-align: center;" title="Identificação">
+                                    ID
+                                 </th>
+                                 <th style="text-align: center;" title="Identificação">
+                                    Disciplina
+                                 </th>
+                                 <th style="text-align: center;" title="Identificação">
+                                    Data
+                                 </th>
+                                 <th style="text-align: center;" title="Identificação">
+                                    Descrição
+                                 </th>
+                                 <th style="text-align: center;" title="Identificação">
+                                    Avaliação
+                                 </th>
+                                 <th style="text-align: center;" title="Identificação">
+                                    Nota
+                                 </th>
+                                 <th style="text-align: center;" title="Identificação">
+                                    Peso
+                                 </th>                                                                                                                                    
+                              </thead>
+                              <tbody>
+                                 <% desempenho_ava.forEach(function(avaliacao) { %>
+                                    <tr>
+                                       <td class="table-align-center">
+                                          <%- avaliacao._id %>
+                                       </td>
+                                       <td class="table-align-center">
+                                          <%- avaliacao._nome %>
+                                       </td>
+                                       <td class="table-align-center">
+                                          <%- avaliacao._dataavaliacao %>
+                                       </td>
+                                       <td class="table-align-center">
+                                          <%- avaliacao._descricao %>
+                                       </td>
+                                       <td class="table-align-center">
+                                          <%- avaliacao._avaliacao %>
+                                       </td>
+                                       <td class="table-align-center">
+                                          <%- avaliacao._nota %>
+                                       </td>
+                                       <td class="table-align-center">
+                                          <%- avaliacao._peso %>
+                                       </td> 
+                                    </tr>
+                                    <% }) %>
+                              </tbody>
+                           </table>
+                        </div>
+                        <!-- /.table-responsive -->
+                     </div>
+                  </div>
+               </div>
+               <!-- FIM SEGUNDA TAB -->
+            </div>
+         </div>
+      </div>
+   </div>
+   <!-- Fim do corpo -->
+   <% include ./../footer %>

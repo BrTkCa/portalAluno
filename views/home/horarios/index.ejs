@@ -1,0 +1,108 @@
+<% include ./../header %>
+
+        <!-- Inicio do corpo -->
+        <div id="page-wrapper">
+                    
+            <div class="row padding-panel">
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">Dados da matrícula</div>                            
+                            <h6><strong>Instituição:</strong> <%- dadosMatricula[0].ies %> </h6>
+                            <h6><strong>Período letivo:</strong> <%- dadosMatricula[0].perletivo %> </h5>
+                            <h6><strong>Curso:</strong> <%- dadosMatricula[0].curso %> </h6>                   
+                            <h6><strong>Situação da matrícula:</strong> <%- dadosMatricula[0].situacao %> </h6>    
+                    </div>
+                </div>                
+            </div>
+
+                   <!-- /.panel -->
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <i class="fa fa-table fa-fw"></i><span class="hidden-xs">Horário de aulas</span>                          
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered table-hover table-striped" style="font-size: 10px !important">
+                                            <thead>                                                 
+                                                <th colspan="7" style="text-align: center" > Dias da semana</th>
+                                                <tr>
+                                                    <th>Horário</th>                                                       
+                                                    <th>Segunda</th>
+                                                    <th>Terça</th>
+                                                    <th>Quarta</th>
+                                                    <th>Quinta</th>
+                                                    <th>Sexta</th>
+                                                    <th>Sábado</th>  
+                                                </tr>
+                                                 <% horarios.forEach(function(horario) { %>                                                 
+                                                 <tr>  
+                                                    <th>07h20 às 09h00</th>                                                     
+                                                    <th> <%- horario.segunda07 %> </th>
+                                                    <th> <%- horario.terca07 %> </th>
+                                                    <th> <%- horario.quarta07 %> </th>
+                                                    <th> <%- horario.quinta07 %> </th>
+                                                    <th> <%- horario.sexta07 %> </th>
+                                                    <th> <%- horario.sabado07 %> </th>
+                                                </tr>
+                                                <tr>
+                                                    <th>09h15 às 10h55</th>                                                       
+                                                    <th> <%- horario.segunda09 %> </th>
+                                                    <th> <%- horario.terca09 %> </th>
+                                                    <th> <%- horario.quarta09 %> </th>
+                                                    <th> <%- horario.quinta09 %> </th>
+                                                    <th> <%- horario.sexta09 %> </th>
+                                                    <th> <%- horario.sabado09 %> </th>
+                                                </tr>
+                                                <tr>
+                                                    <th>13h20 às 15h00</th>                                                       
+                                                    <th> <%- horario.segunda13 %> </th>
+                                                    <th> <%- horario.terca13 %> </th>
+                                                    <th> <%- horario.quarta13 %> </th>
+                                                    <th> <%- horario.quinta13 %> </th>
+                                                    <th> <%- horario.sexta13 %> </th>
+                                                    <th> <%- horario.sabado13 %> </th>
+                                                </tr>
+                                                <tr>
+                                                    <th>15h20 às 16h55</th>                                                       
+                                                    <th> <%- horario.segunda15 %> </th>
+                                                    <th> <%- horario.terca15 %> </th>
+                                                    <th> <%- horario.quarta15 %> </th>
+                                                    <th> <%- horario.quinta15 %> </th>
+                                                    <th> <%- horario.sexta15 %> </th>
+                                                    <th> <%- horario.sabado15 %> </th>
+                                                </tr>
+                                                <tr>
+                                                    <th>19h20 às 21h00</th>                                                       
+                                                    <th> <%- horario.segunda19 %> </th>
+                                                    <th> <%- horario.terca19 %> </th>
+                                                    <th> <%- horario.quarta19 %> </th>
+                                                    <th> <%- horario.quinta19 %> </th>
+                                                    <th> <%- horario.sexta19 %> </th>
+                                                    <th> <%- horario.sabado19 %> </th>
+                                                </tr>
+                                                <tr>
+                                                    <th>21h15 às 22h55</th>                                                       
+                                                    <th> <%- horario.segunda21 %> </th>
+                                                    <th> <%- horario.terca21 %> </th>
+                                                    <th> <%- horario.quarta21 %> </th>
+                                                    <th> <%- horario.quinta21 %> </th>
+                                                    <th> <%- horario.sexta21 %> </th>
+                                                    <th> <%- horario.sabado21 %> </th>
+                                                </tr>
+                                                <% }) %>
+                                            </thead>
+                                            
+                                        </table>
+                                    </div>
+                                    <!-- /.table-responsive -->
+                        </div>                                
+                 </div>                                     
+            </div>
+        </div>
+    </div>
+    <!-- Fim do corpo -->
+    
+<% include ./../footer %>

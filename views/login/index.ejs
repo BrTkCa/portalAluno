@@ -1,0 +1,61 @@
+<% include ../header %>
+  <body>
+  <div class="background hidden-xs show-sm show-md show-lg" data-img-width="1600" data-img-height="1064">
+  
+  <form id="frmLogin" action="/entrar" method="post">    
+              
+           <div class="container hidden-xs">
+              <div class="card card-container">            
+                  <img id="logo-img" class="profile-img-card" src="/images/logofio.png" />
+                  <p id="profile-name" class="profile-name-card"></p>
+                      
+                      <span style="text-align: center">
+                      <span id="reauth-email" class="reauth-email"></span>
+                      <input name="cpf" id="cpf" type="text" class="form-control" placeholder="Digite o CPF" maxlength="14"  required title="" autofocus>
+                      <br/>
+                      <input name="senha" type="password" id="inputPassword" class="form-control" placeholder="Senha" required  maxlength="25">
+                      <div id="remember" class="checkbox hidden">
+                          <label>
+                              <input type="checkbox" value="remember-me"> Mantenha-me conectado
+                          </label>
+                      </div>
+                      <br/>
+                      <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Entrar</button>            
+                      <a href="" class="forgot-password hidden">
+                          Esqueceu sua senha?
+                      </a>
+                      </span>
+              </div><!-- /card-container -->
+          </div><!-- /container -->
+   </form>
+   </div>
+
+   <div class="background-mobile show-xs hidden-sm hidden-md hidden-lg" data-img-width="1600" data-img-height="1064">   
+     <form id="mfrmLogin" action="/entrar" method="post">   
+          <!-- Small screen -->
+          <div class="container show-xs hidden-sm hidden-md hidden-lg">
+              <div class="card_mobile card-container">                              
+                  <p id="m_profile-name" class="profile-name-card"></p>
+                      
+                      <span style="text-align: center">
+                      <span id="m_reauth-email" class="reauth-email"></span>
+                      <input name="cpf" id="m_cpf" type="text" class="form-control" placeholder="Digite o CPF" maxlength="14" required title="" autofocus>
+                      <br/>
+                      <input name="senha" type="password" id="m_inputPassword" class="form-control" placeholder="Senha" required maxlength="25">
+                      <div id="m_remember" class="checkbox hidden">
+                          <label>
+                              <input type="checkbox" value="remember-me" class="hidden"> Mantenha-me conectado
+                          </label>
+                      </div>
+                      <br/>
+                      <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Entrar</button>            
+                      <a href="" class="forgot-password hidden"> 
+                          Esqueceu sua senha?
+                      </a>
+                      </span>
+                      <img id="m_logo-img" class="profile-img-card " src="/images/logofio.png" />
+              </div><!-- /card-container -->
+          </div><!-- /container -->
+    </form>
+  </div>
+<% include ../footer %>

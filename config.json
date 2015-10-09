@@ -1,0 +1,7 @@
+{
+    "SECRET": "AlunoPronatec",
+    "KEY": "alunoPronatec.sid",
+    "MAX_AGE": {
+      "maxAge": 3600000
+    }
+  }

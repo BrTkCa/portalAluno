@@ -1,0 +1,36 @@
+{
+  "name": "alunoPronatec",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node server",
+    "test": "NODE_ENV=test ./node_modules/mocha/bin/mocha test/*.js"
+  },
+  "dependencies": {
+    "body-parser": "~1.4.3",
+    "compression": "~1.0.8",
+    "connect-redis": "~2.0.0",
+    "cookie-parser": "~1.3.2",
+    "csurf": "~1.3.0",
+    "ejs": "^2.3.1",
+    "express": "~4.6.1",
+    "express-load": "^1.1.14",
+    "express-session": "^1.10.4",
+    "forever-monitor": "~1.2.3",
+    "formidable": "^1.0.17",
+    "hiredis": "~0.1.17",
+    "method-override": "~2.1.1",
+    "pg": "^4.3.0",
+    "pg-hstore": "^2.3.1",
+    "redis": "~0.11.0",
+    "sequelize": "^2.0.5",
+    "sequelize-auto": "0.0.7",
+    "socket.io": "^1.2.1",
+    "socket.io-redis": "^0.1.4"
+  },
+  "devDependencies": {
+    "mocha": "~1.20.1",
+    "should": "~4.0.4",
+    "supertest": "~0.13.0"
+  }
+}
