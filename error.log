@@ -1,0 +1,1 @@
+success|ok() is deprecated and will be removed in 2.1, please use promise-style instead.

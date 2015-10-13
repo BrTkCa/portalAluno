@@ -3,7 +3,7 @@
 var Sequelize = require('sequelize');
 
 	module.exports = new Sequelize('bd_integracao', 'pgsql', '"MAKE@love"', {
-		host: '172.16.2.7',
+		host: '138.186.3.22',
 		dialect: 'postgres',
 		pool: {
 			max: 10,

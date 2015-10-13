@@ -65,7 +65,7 @@
                   <div class="modal-body">
                      <div class="row">
                         <div class="col-xs-8">
-                           <input name='image' id="image" type='file' style="margin-top: 11%;" accept="image/*"
+                           <input name='image' id="image" type='file' style="margin-top: 11%;" accept="image/*" onchange="readURL(this);"
                            />
                         </div>
                         <div class="col-xs-4">
@@ -91,6 +91,20 @@
          <!-- /.modal-dialog -->
       </div>
       <!-- /.modal -->
+      <script type="text/javascript">
+         function readURL(input) {
+           if (input.files && input.files[0]) {
+             var reader = new FileReader();
+             reader.onload = function (e) {
+               $('#preview')
+                 .attr('src', e.target.result)
+                 .width(140)
+                 .height(140);
+             };
+             reader.readAsDataURL(input.files[0]);
+           }
+         }
+      </script>
       <div class="row padding-panel">
          <div class="col-lg-6">
             <div class="form-group">

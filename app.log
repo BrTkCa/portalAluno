@@ -1,1 +1,728 @@
 Portal do Aluno em execução
+Executing (default): SELECT DISTINCT INITCAP(p.nome) AS nome, p.id AS pessoa_id,  u.*, m.id AS matricid, m.id_periodo, arq.url FROM global.tbl_user u INNER JOIN global.tbl_pessoa p ON p.usuario_id = u.id INNER JOIN acad.tbl_aluno a ON a.pessoa_id = p.id INNER JOIN acad.tbl_aluno_curso ac ON ac.id_aluno = a.id INNER JOIN acad.tbl_matric m ON m.id_aluno_curso = ac.id LEFT JOIN global.tbl_arq_imagem arq ON arq.id = p.urlimagem_id WHERE u.login = '419.435.068-50' AND u.status = 'ATI' ORDER BY m.id_periodo DESC LIMIT 1
+Executing (default): INSERT INTO global.tbl_sessao (datainicio, ipmaquina, usuario_id,apporigem) VALUES ('2015-10-13 08:31:26','127.0.0.1',3729,'ALU')
+Executing (default): select * from acad.obter_cad_portal_aluno(3729)
+/var/www/portalAluno/upload_3f45e6d584336fc92526acadf0d663a6
+/opt/fio/sigaac/images/imagesUsers/2562.png
+Executing (default): SELECT global.manter_img_perfil_portais(3729,'995039_10200553628241514_1236380632_n.jpg')
+Executing (default): select * from acad.obter_cad_portal_aluno(3729)
+Executing (default): SELECT m.id AS matricid, pl.id AS perletivoid, pl.instituicao_id, acu.id_curso FROM global.tbl_pessoa p INNER JOIN acad.tbl_aluno a ON a.pessoa_id = p.id INNER JOIN acad.tbl_aluno_curso acu ON acu.id_aluno = a.id INNER JOIN acad.tbl_matric m ON m.id_aluno_curso = acu.id INNER JOIN acad.tab_perletivo pl ON pl.id = m.id_periodo WHERE p.usuario_id = 3729 ORDER BY perletivoid DESC LIMIT 1
+Executing (default): select d.id AS id_disc, initcap(d.nome) as nome, pl.id, td.aulasprevistas, (select round(mp.media:: numeric, 2) from acad.tbl_media_parcial mp where mp.turma_id = td.id and mp.matric_id = m.id and mp.periodoav_id = 1) as av1bimestre, (select round(mp.media:: numeric, 2) from acad.tbl_media_parcial mp where mp.turma_id = td.id and mp.matric_id = m.id and mp.periodoav_id = 2) as av2bimestre, round(md.notaexame:: numeric, 2) as notaexame, (select s.descricao from acad.tbl_sit_matricula s where s.id = md.id_situacao) as sit_final_disc, round(md.mediafinal:: numeric, 2) as mediafinal, round(md.frequencia:: numeric, 2) AS frequencia, md.totalfaltas, initcap(sm.descricao) as situacao, ie.id as id_emp, ie.codies as sigla_emp, initcap(ie.nome) as desc_emp, initcap(pl.descricao) as head_01, initcap(c.nome) as head_02, initcap(p.nome) as head_03, initcap(sm.descricao) as head_04, pca.mf_apr_final as criterioaprovacao from acad.tbl_aluno a inner join global.tbl_pessoa p on a.pessoa_id = p.id inner join acad.tbl_aluno_curso ac on ac.id_aluno = a.id inner join acad.tbl_matric m on m.id_aluno_curso = ac.id inner join acad.tbl_curso c on c.id = ac.id_curso inner join acad.tbl_curso_ies ci on ci.id_curso = c.id inner join acad.tbl_inst_ensino ie on ie.id = ci.id_ies inner join acad.tbl_matric_tma mt on mt.id_matric = m.id inner join acad.tbl_matric_disc md on md.id_matric = m.id inner join acad.tbl_tma_disc td on td.id = mt.id_turma inner join acad.tbl_disc d on d.id = td.id_disciplina inner join acad.tab_perletivo pl on pl.id = td.id_periodo_letivo inner join acad.tbl_sit_matricula sm on sm.id = m.id_situacao inner join acad.tbl_disc_matriz dm on dm.id_disciplina = d.id inner join acad.tbl_param_config_av pca on pca.id = dm.id_param_config_av where dm.id_matriz = ac.id_matriz and md.id_disc = d.id and ie.id = 9964 and pl.id = 1035 and c.id = 1116 and m.id = 2479 order by d.nome
+Executing (default): SELECT DISTINCT eta.etapa || 'º ' || pd.descricao || ' - ' || cur.nome AS etapa, eta.etapa || 'º ' || pd.descricao || ' - ' || cur.sigla AS m_etapa  FROM global.tbl_pessoa p  INNER JOIN acad.tbl_aluno a ON a.pessoa_id = p.id INNER JOIN acad.tbl_aluno_curso acu ON acu.id_aluno = a.id INNER JOIN acad.tbl_curso cur ON cur.id = acu.id_curso INNER JOIN acad.tbl_matric m ON m.id_aluno_curso = acu.id INNER JOIN acad.tbl_curso cu ON cu.id = acu.id_curso INNER JOIN acad.tbl_periodo_duracao pd ON pd.id = cur.id_periodo INNER JOIN acad.tbl_oft_etapa_tma eta ON eta.id = m.id_etapa WHERE p.usuario_id = 3729 ORDER BY etapa ASC
+Executing (default): select * from acad.obter_notas_av_portal_aluno(2479,1035)
+Executing (default): SELECT m.id, m.id_periodo, pl.instituicao_id FROM global.tbl_pessoa p  INNER JOIN acad.tbl_aluno a ON a.pessoa_id = p.id  INNER JOIN acad.tbl_aluno_curso acu ON acu.id_aluno = a.id  INNER JOIN acad.tbl_matric m ON m.id_aluno_curso = acu.id  INNER JOIN acad.tab_perletivo pl ON pl.id = m.id_periodo  WHERE p.usuario_id = 3729 ORDER BY m.id_periodo DESC LIMIT 1
+Executing (default): SELECT ARRAY_TO_STRING(ARRAY( 	
+
+	SELECT disciplina.id ||' | '|| initcap(disciplina.nome) || ' | ' || 'Sala:' || sala.codigosala || ' | ' || initcap(pessoap.nome) 
+	FROM acad.tbl_calendario_turma calendariotma 
+
+	INNER JOIN acad.tbl_tma_disc tmadisc ON tmadisc.id = calendariotma.id_turma
+	INNER JOIN acad.tbl_matric_tma matrictma ON matrictma.id_turma = tmadisc.id
+	INNER JOIN acad.tbl_disc disciplina ON disciplina.id = tmadisc.id_disciplina
+	INNER JOIN acad.tbl_dia_semana diasemana ON diasemana.id = calendariotma.id_dia_semana
+	INNER JOIN acad.tbl_hora_fim horafim ON horafim.id = calendariotma.id_hora_fim
+	INNER JOIN acad.tbl_hora_inicio horainicio ON horainicio.id = horafim.id_inicio
+	INNER JOIN acad.tbl_sala sala ON sala.id = calendariotma.id_sala
+	INNER JOIN acad.tbl_docente_turma docentetma ON docentetma.id_turma = tmadisc.id
+	INNER JOIN acad.tbl_docente docente ON docente.id = docentetma.id_docente
+	INNER JOIN global.tbl_pessoa pessoap ON pessoap.id = docente.pessoa_id
+
+    WHERE perletivo.id =  tmadisc.id_periodo_letivo  AND matric.id = matrictma.id_matric and diasemana.id = 2 and horainicio.horario = '07:00:00'
+
+
+),'-')AS segunda07, ARRAY_TO_STRING(ARRAY(
+
+SELECT disciplina.id ||' | '|| initcap(disciplina.nome) || ' | ' || 'Sala:' || sala.codigosala || ' | ' || initcap(pessoap.nome)
+FROM acad.tbl_calendario_turma calendariotma
+
+	INNER JOIN acad.tbl_tma_disc tmadisc ON tmadisc.id = calendariotma.id_turma
+	INNER JOIN acad.tbl_matric_tma matrictma ON matrictma.id_turma = tmadisc.id
+	INNER JOIN acad.tbl_disc disciplina ON disciplina.id = tmadisc.id_disciplina
+	INNER JOIN acad.tbl_dia_semana diasemana ON diasemana.id = calendariotma.id_dia_semana
+	INNER JOIN acad.tbl_hora_fim horafim ON horafim.id = calendariotma.id_hora_fim
+	INNER JOIN acad.tbl_hora_inicio horainicio ON horainicio.id = horafim.id_inicio
+	INNER JOIN acad.tbl_sala sala ON sala.id = calendariotma.id_sala
+	INNER JOIN acad.tbl_docente_turma docentetma ON docentetma.id_turma = tmadisc.id
+	INNER JOIN acad.tbl_docente docente ON docente.id = docentetma.id_docente
+	INNER JOIN global.tbl_pessoa pessoap ON pessoap.id = docente.pessoa_id
+
+        WHERE perletivo.id =  tmadisc.id_periodo_letivo  AND matric.id = matrictma.id_matric and diasemana.id = 2 and horainicio.horario = '09:00:00'
+
+
+),'-')AS segunda09, ARRAY_TO_STRING(ARRAY(
+
+SELECT disciplina.id ||' | '|| initcap(disciplina.nome) || ' | ' || 'Sala:' || sala.codigosala || ' | ' || initcap(pessoap.nome)
+FROM acad.tbl_calendario_turma calendariotma
+
+	INNER JOIN acad.tbl_tma_disc tmadisc ON tmadisc.id = calendariotma.id_turma
+	INNER JOIN acad.tbl_matric_tma matrictma ON matrictma.id_turma = tmadisc.id
+	INNER JOIN acad.tbl_disc disciplina ON disciplina.id = tmadisc.id_disciplina
+	INNER JOIN acad.tbl_dia_semana diasemana ON diasemana.id = calendariotma.id_dia_semana
+	INNER JOIN acad.tbl_hora_fim horafim ON horafim.id = calendariotma.id_hora_fim
+	INNER JOIN acad.tbl_hora_inicio horainicio ON horainicio.id = horafim.id_inicio
+	INNER JOIN acad.tbl_sala sala ON sala.id = calendariotma.id_sala
+	INNER JOIN acad.tbl_docente_turma docentetma ON docentetma.id_turma = tmadisc.id
+	INNER JOIN acad.tbl_docente docente ON docente.id = docentetma.id_docente
+	INNER JOIN global.tbl_pessoa pessoap ON pessoap.id = docente.pessoa_id
+
+        WHERE perletivo.id =  tmadisc.id_periodo_letivo  AND matric.id = matrictma.id_matric and diasemana.id = 3 and horainicio.horario = '07:00:00'
+
+
+),'-')AS terca07, ARRAY_TO_STRING(ARRAY(
+
+SELECT disciplina.id ||' | '|| initcap(disciplina.nome) || ' | ' || 'Sala:' || sala.codigosala || ' | ' || initcap(pessoap.nome)
+FROM acad.tbl_calendario_turma calendariotma
+
+	INNER JOIN acad.tbl_tma_disc tmadisc ON tmadisc.id = calendariotma.id_turma
+	INNER JOIN acad.tbl_matric_tma matrictma ON matrictma.id_turma = tmadisc.id
+	INNER JOIN acad.tbl_disc disciplina ON disciplina.id = tmadisc.id_disciplina
+	INNER JOIN acad.tbl_dia_semana diasemana ON diasemana.id = calendariotma.id_dia_semana
+	INNER JOIN acad.tbl_hora_fim horafim ON horafim.id = calendariotma.id_hora_fim
+	INNER JOIN acad.tbl_hora_inicio horainicio ON horainicio.id = horafim.id_inicio
+	INNER JOIN acad.tbl_sala sala ON sala.id = calendariotma.id_sala
+	INNER JOIN acad.tbl_docente_turma docentetma ON docentetma.id_turma = tmadisc.id
+	INNER JOIN acad.tbl_docente docente ON docente.id = docentetma.id_docente
+	INNER JOIN global.tbl_pessoa pessoap ON pessoap.id = docente.pessoa_id
+
+        WHERE perletivo.id =  tmadisc.id_periodo_letivo  AND matric.id = matrictma.id_matric and diasemana.id = 3 and horainicio.horario = '09:00:00'
+
+
+),'-')AS terca09, ARRAY_TO_STRING(ARRAY(
+
+SELECT disciplina.id ||' | '|| initcap(disciplina.nome) || ' | ' || 'Sala:' || sala.codigosala || ' | ' || initcap(pessoap.nome)
+FROM acad.tbl_calendario_turma calendariotma
+
+	INNER JOIN acad.tbl_tma_disc tmadisc ON tmadisc.id = calendariotma.id_turma
+	INNER JOIN acad.tbl_matric_tma matrictma ON matrictma.id_turma = tmadisc.id
+	INNER JOIN acad.tbl_disc disciplina ON disciplina.id = tmadisc.id_disciplina
+	INNER JOIN acad.tbl_dia_semana diasemana ON diasemana.id = calendariotma.id_dia_semana
+	INNER JOIN acad.tbl_hora_fim horafim ON horafim.id = calendariotma.id_hora_fim
+	INNER JOIN acad.tbl_hora_inicio horainicio ON horainicio.id = horafim.id_inicio
+	INNER JOIN acad.tbl_sala sala ON sala.id = calendariotma.id_sala
+	INNER JOIN acad.tbl_docente_turma docentetma ON docentetma.id_turma = tmadisc.id
+	INNER JOIN acad.tbl_docente docente ON docente.id = docentetma.id_docente
+	INNER JOIN global.tbl_pessoa pessoap ON pessoap.id = docente.pessoa_id
+
+        WHERE perletivo.id =  tmadisc.id_periodo_letivo  AND matric.id = matrictma.id_matric and diasemana.id = 4 and horainicio.horario = '07:00:00'
+
+
+),'-')AS quarta07, ARRAY_TO_STRING(ARRAY(
+
+SELECT disciplina.id ||' | '|| initcap(disciplina.nome) || ' | ' || 'Sala:' || sala.codigosala || ' | ' || initcap(pessoap.nome)
+FROM acad.tbl_calendario_turma calendariotma
+
+	INNER JOIN acad.tbl_tma_disc tmadisc ON tmadisc.id = calendariotma.id_turma
+	INNER JOIN acad.tbl_matric_tma matrictma ON matrictma.id_turma = tmadisc.id
+	INNER JOIN acad.tbl_disc disciplina ON disciplina.id = tmadisc.id_disciplina
+	INNER JOIN acad.tbl_dia_semana diasemana ON diasemana.id = calendariotma.id_dia_semana
+	INNER JOIN acad.tbl_hora_fim horafim ON horafim.id = calendariotma.id_hora_fim
+	INNER JOIN acad.tbl_hora_inicio horainicio ON horainicio.id = horafim.id_inicio
+	INNER JOIN acad.tbl_sala sala ON sala.id = calendariotma.id_sala
+	INNER JOIN acad.tbl_docente_turma docentetma ON docentetma.id_turma = tmadisc.id
+	INNER JOIN acad.tbl_docente docente ON docente.id = docentetma.id_docente
+	INNER JOIN global.tbl_pessoa pessoap ON pessoap.id = docente.pessoa_id
+
+        WHERE perletivo.id =  tmadisc.id_periodo_letivo  AND matric.id = matrictma.id_matric and diasemana.id = 4 and horainicio.horario = '09:00:00'
+
+
+),'-')AS quarta09, ARRAY_TO_STRING(ARRAY(
+
+SELECT disciplina.id ||' | '|| initcap(disciplina.nome) || ' | ' || 'Sala:' || sala.codigosala || ' | ' || initcap(pessoap.nome)
+FROM acad.tbl_calendario_turma calendariotma
+
+	INNER JOIN acad.tbl_tma_disc tmadisc ON tmadisc.id = calendariotma.id_turma
+	INNER JOIN acad.tbl_matric_tma matrictma ON matrictma.id_turma = tmadisc.id
+	INNER JOIN acad.tbl_disc disciplina ON disciplina.id = tmadisc.id_disciplina
+	INNER JOIN acad.tbl_dia_semana diasemana ON diasemana.id = calendariotma.id_dia_semana
+	INNER JOIN acad.tbl_hora_fim horafim ON horafim.id = calendariotma.id_hora_fim
+	INNER JOIN acad.tbl_hora_inicio horainicio ON horainicio.id = horafim.id_inicio
+	INNER JOIN acad.tbl_sala sala ON sala.id = calendariotma.id_sala
+	INNER JOIN acad.tbl_docente_turma docentetma ON docentetma.id_turma = tmadisc.id
+	INNER JOIN acad.tbl_docente docente ON docente.id = docentetma.id_docente
+	INNER JOIN global.tbl_pessoa pessoap ON pessoap.id = docente.pessoa_id
+
+        WHERE perletivo.id =  tmadisc.id_periodo_letivo  AND matric.id = matrictma.id_matric and diasemana.id = 5 and horainicio.horario = '07:00:00'
+
+
+),'-')AS quinta07, ARRAY_TO_STRING(ARRAY(
+
+SELECT disciplina.id ||' | '|| initcap(disciplina.nome) || ' | ' || 'Sala:' || sala.codigosala || ' | ' || initcap(pessoap.nome)
+FROM acad.tbl_calendario_turma calendariotma
+
+	INNER JOIN acad.tbl_tma_disc tmadisc ON tmadisc.id = calendariotma.id_turma
+	INNER JOIN acad.tbl_matric_tma matrictma ON matrictma.id_turma = tmadisc.id
+	INNER JOIN acad.tbl_disc disciplina ON disciplina.id = tmadisc.id_disciplina
+	INNER JOIN acad.tbl_dia_semana diasemana ON diasemana.id = calendariotma.id_dia_semana
+	INNER JOIN acad.tbl_hora_fim horafim ON horafim.id = calendariotma.id_hora_fim
+	INNER JOIN acad.tbl_hora_inicio horainicio ON horainicio.id = horafim.id_inicio
+	INNER JOIN acad.tbl_sala sala ON sala.id = calendariotma.id_sala
+	INNER JOIN acad.tbl_docente_turma docentetma ON docentetma.id_turma = tmadisc.id
+	INNER JOIN acad.tbl_docente docente ON docente.id = docentetma.id_docente
+	INNER JOIN global.tbl_pessoa pessoap ON pessoap.id = docente.pessoa_id
+
+        WHERE perletivo.id =  tmadisc.id_periodo_letivo  AND matric.id = matrictma.id_matric and diasemana.id = 5 and horainicio.horario = '09:00:00'
+
+
+),'-')AS quinta09, ARRAY_TO_STRING(ARRAY(
+
+SELECT disciplina.id ||' | '|| initcap(disciplina.nome) || ' | ' || 'Sala:' || sala.codigosala || ' | ' || initcap(pessoap.nome)
+FROM acad.tbl_calendario_turma calendariotma
+
+	INNER JOIN acad.tbl_tma_disc tmadisc ON tmadisc.id = calendariotma.id_turma
+	INNER JOIN acad.tbl_matric_tma matrictma ON matrictma.id_turma = tmadisc.id
+	INNER JOIN acad.tbl_disc disciplina ON disciplina.id = tmadisc.id_disciplina
+	INNER JOIN acad.tbl_dia_semana diasemana ON diasemana.id = calendariotma.id_dia_semana
+	INNER JOIN acad.tbl_hora_fim horafim ON horafim.id = calendariotma.id_hora_fim
+	INNER JOIN acad.tbl_hora_inicio horainicio ON horainicio.id = horafim.id_inicio
+	INNER JOIN acad.tbl_sala sala ON sala.id = calendariotma.id_sala
+	INNER JOIN acad.tbl_docente_turma docentetma ON docentetma.id_turma = tmadisc.id
+	INNER JOIN acad.tbl_docente docente ON docente.id = docentetma.id_docente
+	INNER JOIN global.tbl_pessoa pessoap ON pessoap.id = docente.pessoa_id
+
+        WHERE perletivo.id =  tmadisc.id_periodo_letivo  AND matric.id = matrictma.id_matric and diasemana.id = 6 and horainicio.horario = '07:00:00'
+
+
+),'-')AS sexta07, ARRAY_TO_STRING(ARRAY(
+
+SELECT disciplina.id ||' | '|| initcap(disciplina.nome) || ' | ' || 'Sala:' || sala.codigosala || ' | ' || initcap(pessoap.nome)
+FROM acad.tbl_calendario_turma calendariotma
+
+	INNER JOIN acad.tbl_tma_disc tmadisc ON tmadisc.id = calendariotma.id_turma
+	INNER JOIN acad.tbl_matric_tma matrictma ON matrictma.id_turma = tmadisc.id
+	INNER JOIN acad.tbl_disc disciplina ON disciplina.id = tmadisc.id_disciplina
+	INNER JOIN acad.tbl_dia_semana diasemana ON diasemana.id = calendariotma.id_dia_semana
+	INNER JOIN acad.tbl_hora_fim horafim ON horafim.id = calendariotma.id_hora_fim
+	INNER JOIN acad.tbl_hora_inicio horainicio ON horainicio.id = horafim.id_inicio
+	INNER JOIN acad.tbl_sala sala ON sala.id = calendariotma.id_sala
+	INNER JOIN acad.tbl_docente_turma docentetma ON docentetma.id_turma = tmadisc.id
+	INNER JOIN acad.tbl_docente docente ON docente.id = docentetma.id_docente
+	INNER JOIN global.tbl_pessoa pessoap ON pessoap.id = docente.pessoa_id
+
+        WHERE perletivo.id =  tmadisc.id_periodo_letivo  AND matric.id = matrictma.id_matric and diasemana.id = 6 and horainicio.horario = '09:00:00'
+
+
+),'-')AS sexta09, ARRAY_TO_STRING(ARRAY(
+
+SELECT disciplina.id ||' | '|| initcap(disciplina.nome) || ' | ' || 'Sala:' || sala.codigosala || ' | ' || initcap(pessoap.nome)
+FROM acad.tbl_calendario_turma calendariotma
+
+	INNER JOIN acad.tbl_tma_disc tmadisc ON tmadisc.id = calendariotma.id_turma
+	INNER JOIN acad.tbl_matric_tma matrictma ON matrictma.id_turma = tmadisc.id
+	INNER JOIN acad.tbl_disc disciplina ON disciplina.id = tmadisc.id_disciplina
+	INNER JOIN acad.tbl_dia_semana diasemana ON diasemana.id = calendariotma.id_dia_semana
+	INNER JOIN acad.tbl_hora_fim horafim ON horafim.id = calendariotma.id_hora_fim
+	INNER JOIN acad.tbl_hora_inicio horainicio ON horainicio.id = horafim.id_inicio
+	INNER JOIN acad.tbl_sala sala ON sala.id = calendariotma.id_sala
+	INNER JOIN acad.tbl_docente_turma docentetma ON docentetma.id_turma = tmadisc.id
+	INNER JOIN acad.tbl_docente docente ON docente.id = docentetma.id_docente
+	INNER JOIN global.tbl_pessoa pessoap ON pessoap.id = docente.pessoa_id
+
+        WHERE perletivo.id =  tmadisc.id_periodo_letivo  AND matric.id = matrictma.id_matric and diasemana.id = 7 and horainicio.horario = '07:00:00'
+
+
+),'-')AS sabado07, ARRAY_TO_STRING(ARRAY(
+
+SELECT disciplina.id ||' | '|| initcap(disciplina.nome) || ' | ' || 'Sala:' || sala.codigosala || ' | ' || initcap(pessoap.nome)
+FROM acad.tbl_calendario_turma calendariotma
+
+	INNER JOIN acad.tbl_tma_disc tmadisc ON tmadisc.id = calendariotma.id_turma
+	INNER JOIN acad.tbl_matric_tma matrictma ON matrictma.id_turma = tmadisc.id
+	INNER JOIN acad.tbl_disc disciplina ON disciplina.id = tmadisc.id_disciplina
+	INNER JOIN acad.tbl_dia_semana diasemana ON diasemana.id = calendariotma.id_dia_semana
+	INNER JOIN acad.tbl_hora_fim horafim ON horafim.id = calendariotma.id_hora_fim
+	INNER JOIN acad.tbl_hora_inicio horainicio ON horainicio.id = horafim.id_inicio
+	INNER JOIN acad.tbl_sala sala ON sala.id = calendariotma.id_sala
+	INNER JOIN acad.tbl_docente_turma docentetma ON docentetma.id_turma = tmadisc.id
+	INNER JOIN acad.tbl_docente docente ON docente.id = docentetma.id_docente
+	INNER JOIN global.tbl_pessoa pessoap ON pessoap.id = docente.pessoa_id
+
+        WHERE perletivo.id =  tmadisc.id_periodo_letivo  AND matric.id = matrictma.id_matric and diasemana.id = 7 and horainicio.horario = '09:00:00'
+
+
+),'-')AS sabado09,ARRAY_TO_STRING(ARRAY(
+SELECT disciplina.id ||' | '|| initcap(disciplina.nome) || ' | ' || 'Sala:' || sala.codigosala || ' | ' || initcap(pessoap.nome)
+FROM acad.tbl_calendario_turma calendariotma
+
+	INNER JOIN acad.tbl_tma_disc tmadisc ON tmadisc.id = calendariotma.id_turma
+	INNER JOIN acad.tbl_matric_tma matrictma ON matrictma.id_turma = tmadisc.id
+	INNER JOIN acad.tbl_disc disciplina ON disciplina.id = tmadisc.id_disciplina
+	INNER JOIN acad.tbl_dia_semana diasemana ON diasemana.id = calendariotma.id_dia_semana
+	INNER JOIN acad.tbl_hora_fim horafim ON horafim.id = calendariotma.id_hora_fim
+	INNER JOIN acad.tbl_hora_inicio horainicio ON horainicio.id = horafim.id_inicio
+	INNER JOIN acad.tbl_sala sala ON sala.id = calendariotma.id_sala
+	INNER JOIN acad.tbl_docente_turma docentetma ON docentetma.id_turma = tmadisc.id
+	INNER JOIN acad.tbl_docente docente ON docente.id = docentetma.id_docente
+	INNER JOIN global.tbl_pessoa pessoap ON pessoap.id = docente.pessoa_id
+
+        WHERE perletivo.id =  tmadisc.id_periodo_letivo  AND matric.id = matrictma.id_matric and diasemana.id = 2 and horainicio.horario = '13:00:00'
+
+
+),'-')AS segunda13, ARRAY_TO_STRING(ARRAY(
+SELECT disciplina.id ||' | '|| initcap(disciplina.nome) || ' | ' || 'Sala:' || sala.codigosala || ' | ' || initcap(pessoap.nome)
+FROM acad.tbl_calendario_turma calendariotma
+
+	INNER JOIN acad.tbl_tma_disc tmadisc ON tmadisc.id = calendariotma.id_turma
+	INNER JOIN acad.tbl_matric_tma matrictma ON matrictma.id_turma = tmadisc.id
+	INNER JOIN acad.tbl_disc disciplina ON disciplina.id = tmadisc.id_disciplina
+	INNER JOIN acad.tbl_dia_semana diasemana ON diasemana.id = calendariotma.id_dia_semana
+	INNER JOIN acad.tbl_hora_fim horafim ON horafim.id = calendariotma.id_hora_fim
+	INNER JOIN acad.tbl_hora_inicio horainicio ON horainicio.id = horafim.id_inicio
+	INNER JOIN acad.tbl_sala sala ON sala.id = calendariotma.id_sala
+	INNER JOIN acad.tbl_docente_turma docentetma ON docentetma.id_turma = tmadisc.id
+	INNER JOIN acad.tbl_docente docente ON docente.id = docentetma.id_docente
+	INNER JOIN global.tbl_pessoa pessoap ON pessoap.id = docente.pessoa_id
+
+        WHERE perletivo.id =  tmadisc.id_periodo_letivo  AND matric.id = matrictma.id_matric and diasemana.id = 2 and horainicio.horario = '15:00:00'
+
+
+),'-')AS segunda15,ARRAY_TO_STRING(ARRAY(
+SELECT disciplina.id ||' | '|| initcap(disciplina.nome) || ' | ' || 'Sala:' || sala.codigosala || ' | ' || initcap(pessoap.nome)
+FROM acad.tbl_calendario_turma calendariotma
+
+	INNER JOIN acad.tbl_tma_disc tmadisc ON tmadisc.id = calendariotma.id_turma
+	INNER JOIN acad.tbl_matric_tma matrictma ON matrictma.id_turma = tmadisc.id
+	INNER JOIN acad.tbl_disc disciplina ON disciplina.id = tmadisc.id_disciplina
+	INNER JOIN acad.tbl_dia_semana diasemana ON diasemana.id = calendariotma.id_dia_semana
+	INNER JOIN acad.tbl_hora_fim horafim ON horafim.id = calendariotma.id_hora_fim
+	INNER JOIN acad.tbl_hora_inicio horainicio ON horainicio.id = horafim.id_inicio
+	INNER JOIN acad.tbl_sala sala ON sala.id = calendariotma.id_sala
+	INNER JOIN acad.tbl_docente_turma docentetma ON docentetma.id_turma = tmadisc.id
+	INNER JOIN acad.tbl_docente docente ON docente.id = docentetma.id_docente
+	INNER JOIN global.tbl_pessoa pessoap ON pessoap.id = docente.pessoa_id
+
+        WHERE perletivo.id =  tmadisc.id_periodo_letivo  AND matric.id = matrictma.id_matric and diasemana.id = 3 and horainicio.horario = '13:00:00'
+
+
+),'-')AS terca13,ARRAY_TO_STRING(ARRAY(
+SELECT disciplina.id ||' | '|| initcap(disciplina.nome) || ' | ' || 'Sala:' || sala.codigosala || ' | ' || initcap(pessoap.nome)
+FROM acad.tbl_calendario_turma calendariotma
+
+	INNER JOIN acad.tbl_tma_disc tmadisc ON tmadisc.id = calendariotma.id_turma
+	INNER JOIN acad.tbl_matric_tma matrictma ON matrictma.id_turma = tmadisc.id
+	INNER JOIN acad.tbl_disc disciplina ON disciplina.id = tmadisc.id_disciplina
+	INNER JOIN acad.tbl_dia_semana diasemana ON diasemana.id = calendariotma.id_dia_semana
+	INNER JOIN acad.tbl_hora_fim horafim ON horafim.id = calendariotma.id_hora_fim
+	INNER JOIN acad.tbl_hora_inicio horainicio ON horainicio.id = horafim.id_inicio
+	INNER JOIN acad.tbl_sala sala ON sala.id = calendariotma.id_sala
+	INNER JOIN acad.tbl_docente_turma docentetma ON docentetma.id_turma = tmadisc.id
+	INNER JOIN acad.tbl_docente docente ON docente.id = docentetma.id_docente
+	INNER JOIN global.tbl_pessoa pessoap ON pessoap.id = docente.pessoa_id
+
+        WHERE perletivo.id =  tmadisc.id_periodo_letivo  AND matric.id = matrictma.id_matric and diasemana.id = 3 and horainicio.horario = '15:00:00'
+
+
+),'-')AS terca15,ARRAY_TO_STRING(ARRAY(
+SELECT disciplina.id ||' | '|| initcap(disciplina.nome) || ' | ' || 'Sala:' || sala.codigosala || ' | ' || initcap(pessoap.nome)
+FROM acad.tbl_calendario_turma calendariotma
+
+	INNER JOIN acad.tbl_tma_disc tmadisc ON tmadisc.id = calendariotma.id_turma
+	INNER JOIN acad.tbl_matric_tma matrictma ON matrictma.id_turma = tmadisc.id
+	INNER JOIN acad.tbl_disc disciplina ON disciplina.id = tmadisc.id_disciplina
+	INNER JOIN acad.tbl_dia_semana diasemana ON diasemana.id = calendariotma.id_dia_semana
+	INNER JOIN acad.tbl_hora_fim horafim ON horafim.id = calendariotma.id_hora_fim
+	INNER JOIN acad.tbl_hora_inicio horainicio ON horainicio.id = horafim.id_inicio
+	INNER JOIN acad.tbl_sala sala ON sala.id = calendariotma.id_sala
+	INNER JOIN acad.tbl_docente_turma docentetma ON docentetma.id_turma = tmadisc.id
+	INNER JOIN acad.tbl_docente docente ON docente.id = docentetma.id_docente
+	INNER JOIN global.tbl_pessoa pessoap ON pessoap.id = docente.pessoa_id
+
+        WHERE perletivo.id =  tmadisc.id_periodo_letivo  AND matric.id = matrictma.id_matric and diasemana.id = 4 and horainicio.horario = '13:00:00'
+
+
+),'-')AS quarta13, ARRAY_TO_STRING(ARRAY(
+SELECT disciplina.id ||' | '|| initcap(disciplina.nome) || ' | ' || 'Sala:' || sala.codigosala || ' | ' || initcap(pessoap.nome)
+FROM acad.tbl_calendario_turma calendariotma
+
+	INNER JOIN acad.tbl_tma_disc tmadisc ON tmadisc.id = calendariotma.id_turma
+	INNER JOIN acad.tbl_matric_tma matrictma ON matrictma.id_turma = tmadisc.id
+	INNER JOIN acad.tbl_disc disciplina ON disciplina.id = tmadisc.id_disciplina
+	INNER JOIN acad.tbl_dia_semana diasemana ON diasemana.id = calendariotma.id_dia_semana
+	INNER JOIN acad.tbl_hora_fim horafim ON horafim.id = calendariotma.id_hora_fim
+	INNER JOIN acad.tbl_hora_inicio horainicio ON horainicio.id = horafim.id_inicio
+	INNER JOIN acad.tbl_sala sala ON sala.id = calendariotma.id_sala
+	INNER JOIN acad.tbl_docente_turma docentetma ON docentetma.id_turma = tmadisc.id
+	INNER JOIN acad.tbl_docente docente ON docente.id = docentetma.id_docente
+	INNER JOIN global.tbl_pessoa pessoap ON pessoap.id = docente.pessoa_id
+
+        WHERE perletivo.id =  tmadisc.id_periodo_letivo  AND matric.id = matrictma.id_matric and diasemana.id = 4 and horainicio.horario = '15:00:00'
+
+
+),'-')AS quarta15, ARRAY_TO_STRING(ARRAY(
+SELECT disciplina.id ||' | '|| initcap(disciplina.nome) || ' | ' || 'Sala:' || sala.codigosala || ' | ' || initcap(pessoap.nome)
+FROM acad.tbl_calendario_turma calendariotma
+
+	INNER JOIN acad.tbl_tma_disc tmadisc ON tmadisc.id = calendariotma.id_turma
+	INNER JOIN acad.tbl_matric_tma matrictma ON matrictma.id_turma = tmadisc.id
+	INNER JOIN acad.tbl_disc disciplina ON disciplina.id = tmadisc.id_disciplina
+	INNER JOIN acad.tbl_dia_semana diasemana ON diasemana.id = calendariotma.id_dia_semana
+	INNER JOIN acad.tbl_hora_fim horafim ON horafim.id = calendariotma.id_hora_fim
+	INNER JOIN acad.tbl_hora_inicio horainicio ON horainicio.id = horafim.id_inicio
+	INNER JOIN acad.tbl_sala sala ON sala.id = calendariotma.id_sala
+	INNER JOIN acad.tbl_docente_turma docentetma ON docentetma.id_turma = tmadisc.id
+	INNER JOIN acad.tbl_docente docente ON docente.id = docentetma.id_docente
+	INNER JOIN global.tbl_pessoa pessoap ON pessoap.id = docente.pessoa_id
+
+        WHERE perletivo.id =  tmadisc.id_periodo_letivo  AND matric.id = matrictma.id_matric and diasemana.id = 5 and horainicio.horario = '13:00:00'
+
+
+),'-')AS quinta13, ARRAY_TO_STRING(ARRAY(
+SELECT disciplina.id ||' | '|| initcap(disciplina.nome) || ' | ' || 'Sala:' || sala.codigosala || ' | ' || initcap(pessoap.nome)
+FROM acad.tbl_calendario_turma calendariotma
+
+	INNER JOIN acad.tbl_tma_disc tmadisc ON tmadisc.id = calendariotma.id_turma
+	INNER JOIN acad.tbl_matric_tma matrictma ON matrictma.id_turma = tmadisc.id
+	INNER JOIN acad.tbl_disc disciplina ON disciplina.id = tmadisc.id_disciplina
+	INNER JOIN acad.tbl_dia_semana diasemana ON diasemana.id = calendariotma.id_dia_semana
+	INNER JOIN acad.tbl_hora_fim horafim ON horafim.id = calendariotma.id_hora_fim
+	INNER JOIN acad.tbl_hora_inicio horainicio ON horainicio.id = horafim.id_inicio
+	INNER JOIN acad.tbl_sala sala ON sala.id = calendariotma.id_sala
+	INNER JOIN acad.tbl_docente_turma docentetma ON docentetma.id_turma = tmadisc.id
+	INNER JOIN acad.tbl_docente docente ON docente.id = docentetma.id_docente
+	INNER JOIN global.tbl_pessoa pessoap ON pessoap.id = docente.pessoa_id
+
+        WHERE perletivo.id =  tmadisc.id_periodo_letivo  AND matric.id = matrictma.id_matric and diasemana.id = 5 and horainicio.horario = '15:00:00'
+
+
+),'-')AS quinta15,ARRAY_TO_STRING(ARRAY(
+SELECT disciplina.id ||' | '|| initcap(disciplina.nome) || ' | ' || 'Sala:' || sala.codigosala || ' | ' || initcap(pessoap.nome)
+FROM acad.tbl_calendario_turma calendariotma
+
+	INNER JOIN acad.tbl_tma_disc tmadisc ON tmadisc.id = calendariotma.id_turma
+	INNER JOIN acad.tbl_matric_tma matrictma ON matrictma.id_turma = tmadisc.id
+	INNER JOIN acad.tbl_disc disciplina ON disciplina.id = tmadisc.id_disciplina
+	INNER JOIN acad.tbl_dia_semana diasemana ON diasemana.id = calendariotma.id_dia_semana
+	INNER JOIN acad.tbl_hora_fim horafim ON horafim.id = calendariotma.id_hora_fim
+	INNER JOIN acad.tbl_hora_inicio horainicio ON horainicio.id = horafim.id_inicio
+	INNER JOIN acad.tbl_sala sala ON sala.id = calendariotma.id_sala
+	INNER JOIN acad.tbl_docente_turma docentetma ON docentetma.id_turma = tmadisc.id
+	INNER JOIN acad.tbl_docente docente ON docente.id = docentetma.id_docente
+	INNER JOIN global.tbl_pessoa pessoap ON pessoap.id = docente.pessoa_id
+
+        WHERE perletivo.id =  tmadisc.id_periodo_letivo  AND matric.id = matrictma.id_matric and diasemana.id = 6 and horainicio.horario = '13:00:00'
+
+
+),'-')AS sexta13, ARRAY_TO_STRING(ARRAY(
+SELECT disciplina.id ||' | '|| initcap(disciplina.nome) || ' | ' || 'Sala:' || sala.codigosala || ' | ' || initcap(pessoap.nome)
+FROM acad.tbl_calendario_turma calendariotma
+
+	INNER JOIN acad.tbl_tma_disc tmadisc ON tmadisc.id = calendariotma.id_turma
+	INNER JOIN acad.tbl_matric_tma matrictma ON matrictma.id_turma = tmadisc.id
+	INNER JOIN acad.tbl_disc disciplina ON disciplina.id = tmadisc.id_disciplina
+	INNER JOIN acad.tbl_dia_semana diasemana ON diasemana.id = calendariotma.id_dia_semana
+	INNER JOIN acad.tbl_hora_fim horafim ON horafim.id = calendariotma.id_hora_fim
+	INNER JOIN acad.tbl_hora_inicio horainicio ON horainicio.id = horafim.id_inicio
+	INNER JOIN acad.tbl_sala sala ON sala.id = calendariotma.id_sala
+	INNER JOIN acad.tbl_docente_turma docentetma ON docentetma.id_turma = tmadisc.id
+	INNER JOIN acad.tbl_docente docente ON docente.id = docentetma.id_docente
+	INNER JOIN global.tbl_pessoa pessoap ON pessoap.id = docente.pessoa_id
+
+        WHERE perletivo.id =  tmadisc.id_periodo_letivo  AND matric.id = matrictma.id_matric and diasemana.id = 6 and horainicio.horario = '15:00:00'
+
+
+),'-')AS sexta15, ARRAY_TO_STRING(ARRAY(
+SELECT disciplina.id ||' | '|| initcap(disciplina.nome) || ' | ' || 'Sala:' || sala.codigosala || ' | ' || initcap(pessoap.nome)
+FROM acad.tbl_calendario_turma calendariotma
+
+	INNER JOIN acad.tbl_tma_disc tmadisc ON tmadisc.id = calendariotma.id_turma
+	INNER JOIN acad.tbl_matric_tma matrictma ON matrictma.id_turma = tmadisc.id
+	INNER JOIN acad.tbl_disc disciplina ON disciplina.id = tmadisc.id_disciplina
+	INNER JOIN acad.tbl_dia_semana diasemana ON diasemana.id = calendariotma.id_dia_semana
+	INNER JOIN acad.tbl_hora_fim horafim ON horafim.id = calendariotma.id_hora_fim
+	INNER JOIN acad.tbl_hora_inicio horainicio ON horainicio.id = horafim.id_inicio
+	INNER JOIN acad.tbl_sala sala ON sala.id = calendariotma.id_sala
+	INNER JOIN acad.tbl_docente_turma docentetma ON docentetma.id_turma = tmadisc.id
+	INNER JOIN acad.tbl_docente docente ON docente.id = docentetma.id_docente
+	INNER JOIN global.tbl_pessoa pessoap ON pessoap.id = docente.pessoa_id
+
+        WHERE perletivo.id =  tmadisc.id_periodo_letivo  AND matric.id = matrictma.id_matric and diasemana.id = 7 and horainicio.horario = '13:00:00'
+
+
+),'-')AS sabado13, ARRAY_TO_STRING(ARRAY(
+SELECT disciplina.id ||' | '|| initcap(disciplina.nome) || ' | ' || 'Sala:' || sala.codigosala || ' | ' || initcap(pessoap.nome)
+FROM acad.tbl_calendario_turma calendariotma
+
+	INNER JOIN acad.tbl_tma_disc tmadisc ON tmadisc.id = calendariotma.id_turma
+	INNER JOIN acad.tbl_matric_tma matrictma ON matrictma.id_turma = tmadisc.id
+	INNER JOIN acad.tbl_disc disciplina ON disciplina.id = tmadisc.id_disciplina
+	INNER JOIN acad.tbl_dia_semana diasemana ON diasemana.id = calendariotma.id_dia_semana
+	INNER JOIN acad.tbl_hora_fim horafim ON horafim.id = calendariotma.id_hora_fim
+	INNER JOIN acad.tbl_hora_inicio horainicio ON horainicio.id = horafim.id_inicio
+	INNER JOIN acad.tbl_sala sala ON sala.id = calendariotma.id_sala
+	INNER JOIN acad.tbl_docente_turma docentetma ON docentetma.id_turma = tmadisc.id
+	INNER JOIN acad.tbl_docente docente ON docente.id = docentetma.id_docente
+	INNER JOIN global.tbl_pessoa pessoap ON pessoap.id = docente.pessoa_id
+
+        WHERE perletivo.id =  tmadisc.id_periodo_letivo  AND matric.id = matrictma.id_matric and diasemana.id = 7 and horainicio.horario = '15:00:00'
+
+
+),'-')AS sabado15, ARRAY_TO_STRING(ARRAY(
+
+SELECT disciplina.id ||' | '|| initcap(disciplina.nome) || ' | ' || 'Sala:' || sala.codigosala || ' | ' || initcap(pessoap.nome)
+FROM acad.tbl_calendario_turma calendariotma
+
+	INNER JOIN acad.tbl_tma_disc tmadisc ON tmadisc.id = calendariotma.id_turma
+	INNER JOIN acad.tbl_matric_tma matrictma ON matrictma.id_turma = tmadisc.id
+	INNER JOIN acad.tbl_disc disciplina ON disciplina.id = tmadisc.id_disciplina
+	INNER JOIN acad.tbl_dia_semana diasemana ON diasemana.id = calendariotma.id_dia_semana
+	INNER JOIN acad.tbl_hora_fim horafim ON horafim.id = calendariotma.id_hora_fim
+	INNER JOIN acad.tbl_hora_inicio horainicio ON horainicio.id = horafim.id_inicio
+	INNER JOIN acad.tbl_sala sala ON sala.id = calendariotma.id_sala
+	INNER JOIN acad.tbl_docente_turma docentetma ON docentetma.id_turma = tmadisc.id
+	INNER JOIN acad.tbl_docente docente ON docente.id = docentetma.id_docente
+	INNER JOIN global.tbl_pessoa pessoap ON pessoap.id = docente.pessoa_id
+
+        WHERE perletivo.id =  tmadisc.id_periodo_letivo  AND matric.id = matrictma.id_matric and diasemana.id = 2 and horainicio.horario = '19:00:00'
+
+
+),'-')AS segunda19, ARRAY_TO_STRING(ARRAY(
+
+SELECT disciplina.id ||' | '|| initcap(disciplina.nome) || ' | ' || 'Sala:' || sala.codigosala || ' | ' || initcap(pessoap.nome)
+FROM acad.tbl_calendario_turma calendariotma
+
+	INNER JOIN acad.tbl_tma_disc tmadisc ON tmadisc.id = calendariotma.id_turma
+	INNER JOIN acad.tbl_matric_tma matrictma ON matrictma.id_turma = tmadisc.id
+	INNER JOIN acad.tbl_disc disciplina ON disciplina.id = tmadisc.id_disciplina
+	INNER JOIN acad.tbl_dia_semana diasemana ON diasemana.id = calendariotma.id_dia_semana
+	INNER JOIN acad.tbl_hora_fim horafim ON horafim.id = calendariotma.id_hora_fim
+	INNER JOIN acad.tbl_hora_inicio horainicio ON horainicio.id = horafim.id_inicio
+	INNER JOIN acad.tbl_sala sala ON sala.id = calendariotma.id_sala
+	INNER JOIN acad.tbl_docente_turma docentetma ON docentetma.id_turma = tmadisc.id
+	INNER JOIN acad.tbl_docente docente ON docente.id = docentetma.id_docente
+	INNER JOIN global.tbl_pessoa pessoap ON pessoap.id = docente.pessoa_id
+
+        WHERE perletivo.id =  tmadisc.id_periodo_letivo  AND matric.id = matrictma.id_matric and diasemana.id = 2 and horainicio.horario = '21:00:00'
+
+
+),'-')AS segunda21, ARRAY_TO_STRING(ARRAY(
+
+SELECT disciplina.id ||' | '|| initcap(disciplina.nome) || ' | ' || 'Sala:' || sala.codigosala || ' | ' || initcap(pessoap.nome)
+FROM acad.tbl_calendario_turma calendariotma
+
+	INNER JOIN acad.tbl_tma_disc tmadisc ON tmadisc.id = calendariotma.id_turma
+	INNER JOIN acad.tbl_matric_tma matrictma ON matrictma.id_turma = tmadisc.id
+	INNER JOIN acad.tbl_disc disciplina ON disciplina.id = tmadisc.id_disciplina
+	INNER JOIN acad.tbl_dia_semana diasemana ON diasemana.id = calendariotma.id_dia_semana
+	INNER JOIN acad.tbl_hora_fim horafim ON horafim.id = calendariotma.id_hora_fim
+	INNER JOIN acad.tbl_hora_inicio horainicio ON horainicio.id = horafim.id_inicio
+	INNER JOIN acad.tbl_sala sala ON sala.id = calendariotma.id_sala
+	INNER JOIN acad.tbl_docente_turma docentetma ON docentetma.id_turma = tmadisc.id
+	INNER JOIN acad.tbl_docente docente ON docente.id = docentetma.id_docente
+	INNER JOIN global.tbl_pessoa pessoap ON pessoap.id = docente.pessoa_id
+
+        WHERE perletivo.id =  tmadisc.id_periodo_letivo  AND matric.id = matrictma.id_matric and diasemana.id = 3 and horainicio.horario = '19:00:00'
+
+
+),'-')AS terca19, ARRAY_TO_STRING(ARRAY(
+
+SELECT disciplina.id ||' | '|| initcap(disciplina.nome) || ' | ' || 'Sala:' || sala.codigosala || ' | ' || initcap(pessoap.nome)
+FROM acad.tbl_calendario_turma calendariotma
+
+	INNER JOIN acad.tbl_tma_disc tmadisc ON tmadisc.id = calendariotma.id_turma
+	INNER JOIN acad.tbl_matric_tma matrictma ON matrictma.id_turma = tmadisc.id
+	INNER JOIN acad.tbl_disc disciplina ON disciplina.id = tmadisc.id_disciplina
+	INNER JOIN acad.tbl_dia_semana diasemana ON diasemana.id = calendariotma.id_dia_semana
+	INNER JOIN acad.tbl_hora_fim horafim ON horafim.id = calendariotma.id_hora_fim
+	INNER JOIN acad.tbl_hora_inicio horainicio ON horainicio.id = horafim.id_inicio
+	INNER JOIN acad.tbl_sala sala ON sala.id = calendariotma.id_sala
+	INNER JOIN acad.tbl_docente_turma docentetma ON docentetma.id_turma = tmadisc.id
+	INNER JOIN acad.tbl_docente docente ON docente.id = docentetma.id_docente
+	INNER JOIN global.tbl_pessoa pessoap ON pessoap.id = docente.pessoa_id
+
+        WHERE perletivo.id =  tmadisc.id_periodo_letivo  AND matric.id = matrictma.id_matric and diasemana.id = 3 and horainicio.horario = '21:00:00'
+
+
+),'-')AS terca21,ARRAY_TO_STRING(ARRAY(
+
+SELECT disciplina.id ||' | '|| initcap(disciplina.nome) || ' | ' || 'Sala:' || sala.codigosala || ' | ' || initcap(pessoap.nome)
+FROM acad.tbl_calendario_turma calendariotma
+
+	INNER JOIN acad.tbl_tma_disc tmadisc ON tmadisc.id = calendariotma.id_turma
+	INNER JOIN acad.tbl_matric_tma matrictma ON matrictma.id_turma = tmadisc.id
+	INNER JOIN acad.tbl_disc disciplina ON disciplina.id = tmadisc.id_disciplina
+	INNER JOIN acad.tbl_dia_semana diasemana ON diasemana.id = calendariotma.id_dia_semana
+	INNER JOIN acad.tbl_hora_fim horafim ON horafim.id = calendariotma.id_hora_fim
+	INNER JOIN acad.tbl_hora_inicio horainicio ON horainicio.id = horafim.id_inicio
+	INNER JOIN acad.tbl_sala sala ON sala.id = calendariotma.id_sala
+	INNER JOIN acad.tbl_docente_turma docentetma ON docentetma.id_turma = tmadisc.id
+	INNER JOIN acad.tbl_docente docente ON docente.id = docentetma.id_docente
+	INNER JOIN global.tbl_pessoa pessoap ON pessoap.id = docente.pessoa_id
+
+        WHERE perletivo.id =  tmadisc.id_periodo_letivo  AND matric.id = matrictma.id_matric and diasemana.id = 4 and horainicio.horario = '19:00:00'
+
+
+),'-')AS quarta19,ARRAY_TO_STRING(ARRAY(
+
+SELECT disciplina.id ||' | '|| initcap(disciplina.nome) || ' | ' || 'Sala:' || sala.codigosala || ' | ' || initcap(pessoap.nome)
+FROM acad.tbl_calendario_turma calendariotma
+
+	INNER JOIN acad.tbl_tma_disc tmadisc ON tmadisc.id = calendariotma.id_turma
+	INNER JOIN acad.tbl_matric_tma matrictma ON matrictma.id_turma = tmadisc.id
+	INNER JOIN acad.tbl_disc disciplina ON disciplina.id = tmadisc.id_disciplina
+	INNER JOIN acad.tbl_dia_semana diasemana ON diasemana.id = calendariotma.id_dia_semana
+	INNER JOIN acad.tbl_hora_fim horafim ON horafim.id = calendariotma.id_hora_fim
+	INNER JOIN acad.tbl_hora_inicio horainicio ON horainicio.id = horafim.id_inicio
+	INNER JOIN acad.tbl_sala sala ON sala.id = calendariotma.id_sala
+	INNER JOIN acad.tbl_docente_turma docentetma ON docentetma.id_turma = tmadisc.id
+	INNER JOIN acad.tbl_docente docente ON docente.id = docentetma.id_docente
+	INNER JOIN global.tbl_pessoa pessoap ON pessoap.id = docente.pessoa_id
+
+        WHERE perletivo.id =  tmadisc.id_periodo_letivo  AND matric.id = matrictma.id_matric and diasemana.id = 4 and horainicio.horario = '21:00:00'
+
+
+),'-')AS quarta21,ARRAY_TO_STRING(ARRAY(
+
+SELECT disciplina.id ||' | '|| initcap(disciplina.nome) || ' | ' || 'Sala:' || sala.codigosala || ' | ' || initcap(pessoap.nome)
+FROM acad.tbl_calendario_turma calendariotma
+
+	INNER JOIN acad.tbl_tma_disc tmadisc ON tmadisc.id = calendariotma.id_turma
+	INNER JOIN acad.tbl_matric_tma matrictma ON matrictma.id_turma = tmadisc.id
+	INNER JOIN acad.tbl_disc disciplina ON disciplina.id = tmadisc.id_disciplina
+	INNER JOIN acad.tbl_dia_semana diasemana ON diasemana.id = calendariotma.id_dia_semana
+	INNER JOIN acad.tbl_hora_fim horafim ON horafim.id = calendariotma.id_hora_fim
+	INNER JOIN acad.tbl_hora_inicio horainicio ON horainicio.id = horafim.id_inicio
+	INNER JOIN acad.tbl_sala sala ON sala.id = calendariotma.id_sala
+	INNER JOIN acad.tbl_docente_turma docentetma ON docentetma.id_turma = tmadisc.id
+	INNER JOIN acad.tbl_docente docente ON docente.id = docentetma.id_docente
+	INNER JOIN global.tbl_pessoa pessoap ON pessoap.id = docente.pessoa_id
+
+        WHERE perletivo.id =  tmadisc.id_periodo_letivo  AND matric.id = matrictma.id_matric and diasemana.id = 5 and horainicio.horario = '19:00:00'
+
+
+),'-')AS quinta19,ARRAY_TO_STRING(ARRAY(
+
+SELECT disciplina.id ||' | '|| initcap(disciplina.nome) || ' | ' || 'Sala:' || sala.codigosala || ' | ' || initcap(pessoap.nome)
+FROM acad.tbl_calendario_turma calendariotma
+
+	INNER JOIN acad.tbl_tma_disc tmadisc ON tmadisc.id = calendariotma.id_turma
+	INNER JOIN acad.tbl_matric_tma matrictma ON matrictma.id_turma = tmadisc.id
+	INNER JOIN acad.tbl_disc disciplina ON disciplina.id = tmadisc.id_disciplina
+	INNER JOIN acad.tbl_dia_semana diasemana ON diasemana.id = calendariotma.id_dia_semana
+	INNER JOIN acad.tbl_hora_fim horafim ON horafim.id = calendariotma.id_hora_fim
+	INNER JOIN acad.tbl_hora_inicio horainicio ON horainicio.id = horafim.id_inicio
+	INNER JOIN acad.tbl_sala sala ON sala.id = calendariotma.id_sala
+	INNER JOIN acad.tbl_docente_turma docentetma ON docentetma.id_turma = tmadisc.id
+	INNER JOIN acad.tbl_docente docente ON docente.id = docentetma.id_docente
+	INNER JOIN global.tbl_pessoa pessoap ON pessoap.id = docente.pessoa_id
+
+        WHERE perletivo.id =  tmadisc.id_periodo_letivo  AND matric.id = matrictma.id_matric and diasemana.id = 5 and horainicio.horario = '21:00:00'
+
+
+),'-')AS quinta21,ARRAY_TO_STRING(ARRAY(
+
+SELECT disciplina.id ||' | '|| initcap(disciplina.nome) || ' | ' || 'Sala:' || sala.codigosala || ' | ' || initcap(pessoap.nome)
+FROM acad.tbl_calendario_turma calendariotma
+
+	INNER JOIN acad.tbl_tma_disc tmadisc ON tmadisc.id = calendariotma.id_turma
+	INNER JOIN acad.tbl_matric_tma matrictma ON matrictma.id_turma = tmadisc.id
+	INNER JOIN acad.tbl_disc disciplina ON disciplina.id = tmadisc.id_disciplina
+	INNER JOIN acad.tbl_dia_semana diasemana ON diasemana.id = calendariotma.id_dia_semana
+	INNER JOIN acad.tbl_hora_fim horafim ON horafim.id = calendariotma.id_hora_fim
+	INNER JOIN acad.tbl_hora_inicio horainicio ON horainicio.id = horafim.id_inicio
+	INNER JOIN acad.tbl_sala sala ON sala.id = calendariotma.id_sala
+	INNER JOIN acad.tbl_docente_turma docentetma ON docentetma.id_turma = tmadisc.id
+	INNER JOIN acad.tbl_docente docente ON docente.id = docentetma.id_docente
+	INNER JOIN global.tbl_pessoa pessoap ON pessoap.id = docente.pessoa_id
+
+        WHERE perletivo.id =  tmadisc.id_periodo_letivo  AND matric.id = matrictma.id_matric and diasemana.id = 6 and horainicio.horario = '19:00:00'
+
+
+),'-')AS sexta19,ARRAY_TO_STRING(ARRAY(
+
+SELECT disciplina.id ||' | '|| initcap(disciplina.nome) || ' | ' || 'Sala:' || sala.codigosala || ' | ' || initcap(pessoap.nome)
+FROM acad.tbl_calendario_turma calendariotma
+
+	INNER JOIN acad.tbl_tma_disc tmadisc ON tmadisc.id = calendariotma.id_turma
+	INNER JOIN acad.tbl_matric_tma matrictma ON matrictma.id_turma = tmadisc.id
+	INNER JOIN acad.tbl_disc disciplina ON disciplina.id = tmadisc.id_disciplina
+	INNER JOIN acad.tbl_dia_semana diasemana ON diasemana.id = calendariotma.id_dia_semana
+	INNER JOIN acad.tbl_hora_fim horafim ON horafim.id = calendariotma.id_hora_fim
+	INNER JOIN acad.tbl_hora_inicio horainicio ON horainicio.id = horafim.id_inicio
+	INNER JOIN acad.tbl_sala sala ON sala.id = calendariotma.id_sala
+	INNER JOIN acad.tbl_docente_turma docentetma ON docentetma.id_turma = tmadisc.id
+	INNER JOIN acad.tbl_docente docente ON docente.id = docentetma.id_docente
+	INNER JOIN global.tbl_pessoa pessoap ON pessoap.id = docente.pessoa_id
+
+        WHERE perletivo.id =  tmadisc.id_periodo_letivo  AND matric.id = matrictma.id_matric and diasemana.id = 6 and horainicio.horario = '21:00:00'
+
+
+),'-')AS sexta21,ARRAY_TO_STRING(ARRAY(
+
+SELECT disciplina.id ||' | '|| initcap(disciplina.nome) || ' | ' || 'Sala:' || sala.codigosala || ' | ' || initcap(pessoap.nome)
+FROM acad.tbl_calendario_turma calendariotma
+
+	INNER JOIN acad.tbl_tma_disc tmadisc ON tmadisc.id = calendariotma.id_turma
+	INNER JOIN acad.tbl_matric_tma matrictma ON matrictma.id_turma = tmadisc.id
+	INNER JOIN acad.tbl_disc disciplina ON disciplina.id = tmadisc.id_disciplina
+	INNER JOIN acad.tbl_dia_semana diasemana ON diasemana.id = calendariotma.id_dia_semana
+	INNER JOIN acad.tbl_hora_fim horafim ON horafim.id = calendariotma.id_hora_fim
+	INNER JOIN acad.tbl_hora_inicio horainicio ON horainicio.id = horafim.id_inicio
+	INNER JOIN acad.tbl_sala sala ON sala.id = calendariotma.id_sala
+	INNER JOIN acad.tbl_docente_turma docentetma ON docentetma.id_turma = tmadisc.id
+	INNER JOIN acad.tbl_docente docente ON docente.id = docentetma.id_docente
+	INNER JOIN global.tbl_pessoa pessoap ON pessoap.id = docente.pessoa_id
+
+        WHERE perletivo.id =  tmadisc.id_periodo_letivo  AND matric.id = matrictma.id_matric and diasemana.id = 7 and horainicio.horario = '19:00:00'
+
+
+	),'-')AS sabado19, ARRAY_TO_STRING(ARRAY(
+
+	SELECT disciplina.id ||' | '|| initcap(disciplina.nome) || ' | ' || 'Sala:' || sala.codigosala || ' | ' || initcap(pessoap.nome)
+	FROM acad.tbl_calendario_turma calendariotma
+
+	INNER JOIN acad.tbl_tma_disc tmadisc ON tmadisc.id = calendariotma.id_turma
+
+	INNER JOIN acad.tbl_matric_tma matrictma ON matrictma.id_turma = tmadisc.id
+	INNER JOIN acad.tbl_disc disciplina ON disciplina.id = tmadisc.id_disciplina
+	INNER JOIN acad.tbl_dia_semana diasemana ON diasemana.id = calendariotma.id_dia_semana
+	INNER JOIN acad.tbl_hora_fim horafim ON horafim.id = calendariotma.id_hora_fim
+	INNER JOIN acad.tbl_hora_inicio horainicio ON horainicio.id = horafim.id_inicio
+	INNER JOIN acad.tbl_sala sala ON sala.id = calendariotma.id_sala
+	INNER JOIN acad.tbl_docente_turma docentetma ON docentetma.id_turma = tmadisc.id
+	INNER JOIN acad.tbl_docente docente ON docente.id = docentetma.id_docente
+	INNER JOIN global.tbl_pessoa pessoap ON pessoap.id = docente.pessoa_id
+
+        WHERE perletivo.id =  tmadisc.id_periodo_letivo  AND matric.id = matrictma.id_matric and diasemana.id = 7 and horainicio.horario = '21:00:00'
+
+	),'-')AS sabado21,curso.id AS cursoid, initcap(curso.nome) AS cursonome,oftetapatma.etapa AS etapa, periododuracao.descricao AS periododescricao,
+	INITCAP(instituicao.nome) AS iesnome, instituicao.codies AS iescod, instituicao.id AS iesid, initcap(perletivo.descricao) AS perletivo,
+	initcap(pessoaaluno.nome) AS alunonome FROM acad.tbl_matric matric
+
+	INNER JOIN acad.tbl_aluno_curso alunocurso ON alunocurso.id = matric.id_aluno_curso
+        INNER JOIN acad.tbl_oft_etapa_tma oftetapatma ON oftetapatma.id = matric.id_etapa
+        INNER JOIN acad.tab_perletivo perletivo ON perletivo.id = matric.id_periodo
+	INNER JOIN acad.tbl_curso curso ON curso.id = alunocurso.id_curso
+	INNER JOIN acad.tbl_aluno aluno ON aluno.id = alunocurso.id_aluno
+	INNER JOIN acad.tbl_curso_ies cursoies ON cursoies.id_curso = curso.id
+	INNER JOIN acad.tbl_inst_ensino instituicao ON instituicao.id = cursoies.id_ies
+	INNER JOIN global.tbl_pessoa pessoaaluno ON pessoaaluno.id = aluno.pessoa_id
+	INNER JOIN acad.tbl_periodo_duracao periododuracao ON periododuracao.id = curso.id_periodo
+
+	WHERE instituicao.id = 9964 AND perletivo.id = 1035 AND matric.id = 2479
+Executing (default): SELECT INITCAP(ies.nome) AS ies, INITCAP(pl.descricao) AS perletivo, INITCAP(c.nome) AS curso, INITCAP(sit.descricao) AS situacao FROM acad.tbl_matric m INNER JOIN acad.tab_perletivo pl ON pl.id = m.id_periodo INNER JOIN acad.tbl_inst_ensino ies ON ies.id = instituicao_id INNER JOIN acad.tbl_aluno_curso ac ON ac.id = m.id_aluno_curso INNER JOIN acad.tbl_curso c ON c.id = id_curso INNER JOIN acad.tbl_sit_matricula sit ON sit.id = m.id_situacao WHERE m.id = 2479
+Executing (default): select * from acad.obter_cad_portal_aluno(3729)
+Executing (default): SELECT DISTINCT INITCAP(p.nome) AS nome, p.id AS pessoa_id,  u.*, m.id AS matricid, m.id_periodo, arq.url FROM global.tbl_user u INNER JOIN global.tbl_pessoa p ON p.usuario_id = u.id INNER JOIN acad.tbl_aluno a ON a.pessoa_id = p.id INNER JOIN acad.tbl_aluno_curso ac ON ac.id_aluno = a.id INNER JOIN acad.tbl_matric m ON m.id_aluno_curso = ac.id LEFT JOIN global.tbl_arq_imagem arq ON arq.id = p.urlimagem_id WHERE u.login = '419.435.068-50' AND u.status = 'ATI' ORDER BY m.id_periodo DESC LIMIT 1
+Executing (default): INSERT INTO global.tbl_sessao (datainicio, ipmaquina, usuario_id,apporigem) VALUES ('2015-10-13 08:39:16','10.0.0.222',3729,'ALU')
+Executing (default): select * from acad.obter_cad_portal_aluno(3729)
+/var/www/portalAluno/upload_47d443bd4f82d2b74dbab58e44d73c8c
+/opt/fio/sigaac/images/imagesUsers/2562.png
+Executing (default): SELECT global.manter_img_perfil_portais(3729,'Koala.jpg')
+Executing (default): select * from acad.obter_cad_portal_aluno(3729)
+Executing (default): SELECT DISTINCT INITCAP(p.nome) AS nome, p.id AS pessoa_id,  u.*, m.id AS matricid, m.id_periodo, arq.url FROM global.tbl_user u INNER JOIN global.tbl_pessoa p ON p.usuario_id = u.id INNER JOIN acad.tbl_aluno a ON a.pessoa_id = p.id INNER JOIN acad.tbl_aluno_curso ac ON ac.id_aluno = a.id INNER JOIN acad.tbl_matric m ON m.id_aluno_curso = ac.id LEFT JOIN global.tbl_arq_imagem arq ON arq.id = p.urlimagem_id WHERE u.login = '419.435.068-50' AND u.status = 'ATI' ORDER BY m.id_periodo DESC LIMIT 1
+Executing (default): INSERT INTO global.tbl_sessao (datainicio, ipmaquina, usuario_id,apporigem) VALUES ('2015-10-13 08:51:04','127.0.0.1',3729,'ALU')
+Executing (default): select * from acad.obter_cad_portal_aluno(3729)
+Executing (default): select * from acad.obter_cad_portal_aluno(3729)
+/var/www/portalAluno/upload_74a34ea0c926a215b32a8a40cfaa4d6d
+/opt/fio/sigaac/images/imagesUsers/2562.png
+Executing (default): SELECT global.manter_img_perfil_portais(3729,'995039_10200553628241514_1236380632_n.jpg')
+Executing (default): select * from acad.obter_cad_portal_aluno(3729)
+Executing (default): select * from acad.obter_cad_portal_aluno(3729)
+Executing (default): select * from acad.obter_cad_portal_aluno(3729)
+Executing (default): select * from acad.obter_cad_portal_aluno(3729)
+Executing (default): select * from acad.obter_cad_portal_aluno(3729)
+Executing (default): select * from acad.obter_cad_portal_aluno(3729)
+Executing (default): select * from acad.obter_cad_portal_aluno(3729)
+Executing (default): select * from acad.obter_cad_portal_aluno(3729)
+/var/www/portalAluno/upload_243bdab384c6dfb072c2b1e3b79bf987
+/opt/fio/sigaac/images/imagesUsers/2562.png
+Executing (default): SELECT global.manter_img_perfil_portais(3729,'10151383_609774429128280_1961306082074318254_n.jpg')
+Executing (default): select * from acad.obter_cad_portal_aluno(3729)
